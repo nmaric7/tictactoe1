@@ -10,7 +10,7 @@ const Paths = {
 
 // webpack plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 //const WriteFilePlugin   = require('write-file-webpack-plugin');
 
@@ -19,7 +19,8 @@ const API_PATH = 'http://localhost:9000/api';
 const API_FLASK_API = 'http://localhost:5000/tictactoe/api/v1.0'
 
 // Webpack configuration
-var devConfig = {
+const devConfig = {
+    mode: "development",
     devtool:"source-map",
     entry: path.join(Paths.JS, 'app.js'),
     output: {
@@ -34,7 +35,7 @@ var devConfig = {
             jQuery: "jquery"
         }),
         new HtmlWebpackPlugin({template: path.join(Paths.SRC, 'index.html')}),
-        new ExtractTextPlugin('css/app.bundle.css'),
+        new MiniCssExtractPlugin('css/app.bundle.css'),
         new CopyWebpackPlugin(([{from: 'src/images', to: 'images' }]))
     ],
     module: {
@@ -48,9 +49,11 @@ var devConfig = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract({
-                    use: 'css-loader',
-                })
+                use: [
+                    {loader: MiniCssExtractPlugin.loader},
+                    "css-loader"
+                ]
+
             },
             {
                 test: /\.(png|jpg|gif|svg)$/,
@@ -89,7 +92,10 @@ var devConfig = {
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+                use: [
+                    {loader: MiniCssExtractPlugin.loader},
+                    "css-loader"
+                ]
             },
             {
                 test: /\.[ot]tf$/,
