@@ -9,9 +9,9 @@ export default class Board extends React.Component {
     };
 
     renderSquare(i) {
-        const {board, active} = this.props;
+        const {board, active, next} = this.props;
         const value = board[i];
-        const disabled = (value && value !== ' ') || !active;
+        const disabled = (value && value !== ' ') || !active || next === 'X';
         return <Square
             value={value}
             disabled={disabled}

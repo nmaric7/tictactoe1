@@ -52,11 +52,14 @@ export default class Game extends React.Component {
         return emptySpaces;
     }
     render() {
+        const {board, active, next, onPlayerMove, onStartGame, scoreboard, accuracy, loading, onGetAccuracy, onTrainNN} = this.props;
         return (
             <div>
-                <Board {...this.props} />
-                <ScoreBoard {...this.props} />
-                <TrainNN {...this.props} />
+                <Board board={board} active={active} next={next}
+                       onPlayerMove={onPlayerMove} onStartGame={onStartGame} />
+                <ScoreBoard scoreboard={scoreboard} />
+                <TrainNN accuracy={accuracy} loading={loading}
+                         onGetAccuracy={onGetAccuracy} onTrainNN={onTrainNN} />
             </div>
         );
     }
