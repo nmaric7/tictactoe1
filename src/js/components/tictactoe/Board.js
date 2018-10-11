@@ -9,10 +9,11 @@ export default class Board extends React.Component {
     };
 
     renderSquare(i) {
-        const {board, active, next} = this.props;
+        const {board, active, next, winningCombination} = this.props;
         const value = board[i];
         const disabled = (value && value !== ' ') || !active || next === 'X';
         return <Square
+            className={winningCombination.includes(i) ? 'win' : ''}
             value={value}
             disabled={disabled}
             onClick={() => this.handleClick(i)}/>;

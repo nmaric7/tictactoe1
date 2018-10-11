@@ -32,6 +32,11 @@ ol, ul {
     width: 50px;
 }
 
+.win {
+    background: darkorange;
+    color: white;
+}
+
 .square:focus {
     outline: none;
 }
