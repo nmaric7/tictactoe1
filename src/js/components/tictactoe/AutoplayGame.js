@@ -3,15 +3,17 @@ import Board from "./Board";
 import ScoreBoard from "./ScoreBoard";
 import TrainNN from "./TrainNN";
 
-export default class Game extends React.Component {
+export default class AutoplayGame extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {winningCombination: []};
+        this.state = {winningCombination: [], noOfGames: 0};
     }
 
     componentDidUpdate(prevProps) {
-        const {next, board, active, moves, onPredictMove, onStopGame} = this.props;
+        const {next, board, active, moves, onPredictMove, onUnbeatMove, onStopGame, onStartGame, scoreboard} = this.props;
+        let {noOfGames} = this.state;
+
         if (next != prevProps.next || (active != prevProps.active && active)) {
             // check for winner
             const winner = this.checkForWinner(board);
@@ -22,15 +24,24 @@ export default class Game extends React.Component {
                 this.setState({winningCombination: winningCombination});
             }
 
-            if (winner || noEmptySpaces === 0)  {
+            if (winner || noEmptySpaces === 0) {
                 // stop the game, update results
-                onStopGame(winner, moves);
+                setTimeout(() => onStopGame(winner, moves), 100);
             }
             // check who is on move
             else if (next === 'X') {
-                onPredictMove(board.join(''));
+                setTimeout(() => onPredictMove(board.join('')), 100);
+            }
+            else if (next === 'O') {
+                setTimeout(() => onUnbeatMove(board.join(''), next), 100);
             }
 
+        } else if (scoreboard != prevProps.scoreboard) {
+            if (noOfGames < 20) {
+                setTimeout(() => this.handleStartGame(), 200);
+            } else {
+                this.setState({noOfGames: 0});
+            }
         }
     }
 
@@ -84,21 +95,22 @@ export default class Game extends React.Component {
 
     handleStartGame = () => {
         const {onStartGame} = this.props;
-        this.setState({winningCombination: []});
+        this.setState({winningCombination: [], noOfGames: this.state.noOfGames + 1});
         onStartGame();
     };
 
     render() {
-        const {board, active, next, onPlayerMove, scoreboard, accuracy, loading, onGetAccuracy, onTrainNN} = this.props;
+        const {board, active, next, scoreboard, accuracy, loading, onGetAccuracy, onTrainNN} = this.props;
         const {winningCombination} = this.state;
         return (
             <div>
                 <Board board={board} active={active} next={next}
                        winningCombination={winningCombination}
-                       onPlayerMove={onPlayerMove} onStartGame={this.handleStartGame} />
-                <ScoreBoard scoreboard={scoreboard} />
+                       onStartGame={this.handleStartGame}/>
+                <ScoreBoard scoreboard={scoreboard}/>
                 <TrainNN accuracy={accuracy} loading={loading}
                          onGetAccuracy={onGetAccuracy} onTrainNN={onTrainNN} />
+
             </div>
         );
     }

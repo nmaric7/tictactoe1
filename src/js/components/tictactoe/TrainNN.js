@@ -13,7 +13,7 @@ export default class TrainNN extends React.Component {
             <div>
                 <div>Accuracy: {accuracy}</div>
                 <button onClick={onTrainNN}>
-                    {loading ? 'Trening u tijeku...' : 'Treniraj mrežu'}
+                    {loading ? 'Training...' : 'Train the Network'}
                 </button>
             </div>
         );

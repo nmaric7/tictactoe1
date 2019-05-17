@@ -9,7 +9,8 @@ import {
 }  from 'react-router-dom';
 
 import Stickers from './components/stickers/_stickers'
-import TicTacToePage from './containers/TicTacToePage'
+import TicTacToePageV1 from './containers/TicTacToePageV1'
+import TicTacToePageV2 from './containers/TicTacToePageV2'
 //styles
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min';
@@ -18,6 +19,9 @@ import './../style/custom.css';
 //redux
 import {Provider} from 'react-redux';
 import store      from './redux/store';
+import Template from "./layout/Template";
+import Navigation from "./components/tictactoe/Navigation";
+import AutoplayPage from "./containers/AutoplayPage";
 
 const Header = () => (
     <header style={{paddingBottom: '20px'}}>
@@ -57,23 +61,16 @@ const StickersRoutes = () => (
     </div>
 );
 
-const TicTacToeRoutes = () => (
-    <div>
-        <h3>Tic Tac Toe Page</h3>
-        <Switch>
-            <Route exact path='/tictactoe' component={TicTacToePage}/>
-        </Switch>
-    </div>
-);
-
 const Main = () => (
-    <main>
-        <Switch>
+    <Switch>
+        <Template navigation={<Navigation/>}>
             <Route exact path='/' component={Home}/>
             <Route path='/stickers' component={StickersRoutes}/>
-            <Route path='/tictactoe' component={TicTacToeRoutes}/>
-        </Switch>
-    </main>
+            <Route exact path='/tictactoe/v1' component={TicTacToePageV1}/>
+            <Route exact path='/tictactoe/v2' component={TicTacToePageV2}/>
+            <Route exact path='/tictactoe/v3' component={AutoplayPage}/>
+        </Template>
+    </Switch>
 );
 
 // Application + Router

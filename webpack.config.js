@@ -16,7 +16,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // REST API SERVER URL
 const API_PATH = 'http://localhost:9000/api';
-const API_FLASK_API = 'http://localhost:5000/tictactoe/api/v1.0'
+const API_FLASK_API = 'http://localhost:5000/tictactoe/api'
 
 // Webpack configuration
 const devConfig = {

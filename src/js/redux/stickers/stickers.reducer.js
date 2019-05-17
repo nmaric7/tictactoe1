@@ -7,14 +7,14 @@ let initialState = {
 
 const stickers = (state = initialState, action) => {
     switch (action.type) {
-        case Types.ITERATE_SUCCESS: {
-            return {
-                ...state,
-                counter: state.counter + action.payload
-            };
-        }
-        default:
-            return state;
+    case Types.ITERATE_SUCCESS: {
+        return {
+            ...state,
+            counter: state.counter + action.payload
+        };
+    }
+    default:
+        return state;
     }
 };
 

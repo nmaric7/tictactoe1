@@ -1,11 +1,11 @@
-import React from 'react'
-import {createStore, applyMiddleware} from 'redux'
-import logger from 'redux-logger'
-import thunk from 'redux-thunk'
+import React from 'react';
+import {createStore, applyMiddleware} from 'redux';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 import {combineReducers} from 'redux';
 import test from './test/test.reducer';
-import stickers from './stickers/stickers.reducer'
-import tictactoe from './tictactoe/tictactoe.reducer'
+import stickers from './stickers/stickers.reducer';
+import tictactoe from './tictactoe/tictactoe.reducer';
 
 
 const reducers = combineReducers({

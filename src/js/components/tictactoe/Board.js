@@ -11,10 +11,10 @@ export default class Board extends React.Component {
     renderSquare(i) {
         const {board, active, next, winningCombination} = this.props;
         const value = board[i];
-        const disabled = (value && value !== ' ') || !active || next === 'X';
+        const disabled = (value && value !== '-') || !active || next === 'X';
         return <Square
             className={winningCombination.includes(i) ? 'win' : ''}
-            value={value}
+            value={value === '-' ? ' ' : value}
             disabled={disabled}
             onClick={() => this.handleClick(i)}/>;
     }
@@ -33,7 +33,7 @@ export default class Board extends React.Component {
                     <button
                         onClick={this.handleStartGame}
                         disabled={active}>
-                        {!active ? 'Započni novu igru' : 'Igra u tijeku...'}
+                        {!active ? 'Start new game' : 'Playing...'}
                     </button>
                 </div>
 

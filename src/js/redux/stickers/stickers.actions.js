@@ -17,7 +17,7 @@ export const iterate = (ascending) => {
                 dispatch({type: Types.ITERATE_FAILURE, error});
             });
 
-    }
+    };
 };
 
 export const auth = (params) => {
@@ -34,5 +34,5 @@ export const auth = (params) => {
                 dispatch({type: Types.AUTH_FAILURE, error});
             });
 
-    }
+    };
 };

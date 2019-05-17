@@ -17,5 +17,5 @@ export const fetchProducts = (searchObject) => {
             .catch(function (error) {
                 dispatch({type: FETCH_PRODUCTS_FAILURE, error});
             });
-    }
+    };
 };
